@@ -1,0 +1,119 @@
+{
+  "name": "Synchronisation HubSpot → Supabase",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "hours"
+            }
+          ]
+        }
+      },
+      "id": "3c489b12-af7f-5518-9769-f346e7333efb",
+      "name": "Toutes les heures",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "contact",
+        "operation": "getRecentlyCreatedUpdated",
+        "returnAll": true
+      },
+      "id": "8a36d36f-c7ba-5366-b2fe-60e18f8020a8",
+      "name": "HubSpot – contacts modifiés",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "REMPLACER",
+          "name": "HubSpot (cabinet)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// HubSpot -> table `clients` de l'app interne (supabase/schema.sql), téléphone normalisé\nconst tel = t => { const d = (t || '').replace(/\\D/g, '').replace(/^33/, '0');\n  return /^0[1-9]\\d{8}$/.test(d) ? `+33 ${d[1]} ${d.slice(2,4)} ${d.slice(4,6)} ${d.slice(6,8)} ${d.slice(8,10)}` : null; };\nreturn $input.all().map(i => { const p = i.json.properties ?? i.json; return { json: {\n  id: `HS-${i.json.id ?? p.hs_object_id}`, prenom: (p.firstname || '').trim(), nom: (p.lastname || '').trim(),\n  email: (p.email || '').trim().toLowerCase() || null, telephone: tel(p.phone),\n  date_kyc: p.date_kyc || null, conseiller: p.conseiller || 'Non attribué' } }; });"
+      },
+      "id": "f550a6b7-0379-592a-8f2f-e156ca8e15a7",
+      "name": "Mapper vers le schéma app",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "operation": "upsert",
+        "tableId": "clients",
+        "dataToSend": "autoMapInputData"
+      },
+      "id": "dced9fb3-46ec-54b8-849c-9a690a2ee8a1",
+      "name": "Supabase – upsert clients",
+      "type": "n8n-nodes-base.supabase",
+      "typeVersion": 1,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "supabaseApi": {
+          "id": "REMPLACER",
+          "name": "Supabase (app interne)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Toutes les heures": {
+      "main": [
+        [
+          {
+            "node": "HubSpot – contacts modifiés",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HubSpot – contacts modifiés": {
+      "main": [
+        [
+          {
+            "node": "Mapper vers le schéma app",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mapper vers le schéma app": {
+      "main": [
+        [
+          {
+            "node": "Supabase – upsert clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

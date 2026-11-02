@@ -1,0 +1,65 @@
+hs_object_id,firstname,lastname,email,phone,lifecyclestage,date_dernier_contact,date_kyc,conseiller,encours_eur
+1001,Karim,Masson,karim.masson@exemple.fr,,lead,2026-05-10,2026-04-15,Nadia B.,150000
+1002, Camille,Fournier,camille.fournier@exemple.fr,+33673423023,lead,2026-06-21,,Alexandre P.,600000
+1003,Anne,Henry,anne.henry@exemple.fr,06.83.69.43.83,customer,2026-04-21,2026-10-09,Nadia B.,0
+1004,Marc,Lefèvre, MARC.LEFÈVRE@EXEMPLE.FR ,0636376692,opportunity,2026-03-08,2026-04-15,Nadia B.,150000
+1005,Yanis,Mercier,yanis.mercier@exemple.fr,06 59 29 77 97,lead,2026-03-23,,Alexandre P.,25000
+1006,Anne,Masson,anne.masson@exemple.fr,06 29 89 04 81,customer,2026-09-13,2026-05-04,Nadia B.,25000
+1007,Chloé,Mercier, CHLOÉ.MERCIER@EXEMPLE.FR ,06.51.51.40.23,opportunity,2026-10-06,2025-12-10,Nadia B.,0
+1008,Louis,Girard,louis.girard@exemple.fr,06.43.58.24.64,customer,2026-08-17,2025-07-01,Alexandre P.,150000
+1009,claire,Blanc,claire.blanc@exemple.fr,+33685705188,customer,2026-09-06,2026-04-06,Alexandre P.,0
+1010,Paul,Masson,paul.massonexemple.fr,,opportunity,2026-03-12,,Nadia B.,150000
+1011,Victor,Robin,victor.robin@exemple.fr,0629663751,customer,2026-07-31,2026-01-31,Nadia B.,25000
+1012,Camille,Michel,camille.michel@exemple.fr,,customer,2026-09-28,2025-09-12,Nadia B.,600000
+1013, Chloé,Bonnet,chloé.bonnet@exemple.fr,06 51 03 02 36,customer,2026-02-24,2025-10-25,Nadia B.,80000
+1014,Thomas,Simon,thomas.simon@exemple.fr,06.11.55.43.29,customer,2026-05-17,2026-02-18,Nadia B.,320000
+1015,julie,martin,julie.martin@exemple.fr,06 56 69 22 68,customer,2026-04-04,2025-08-08,Alexandre P.,600000
+1016,SOPHIE,Robin,sophie.robin@exemple.fr,,opportunity,2026-08-06,2026-04-11,Nadia B.,80000
+1017,Marc,Fournier,marc.fournier@exemple.fr,+33665919584,customer,2026-05-29,2025-09-12,Nadia B.,600000
+1018, Sarah,martin,,06.88.71.17.47,opportunity,2026-07-10,2026-07-13,Alexandre P.,150000
+1019, Camille,Simon,,0627921675,customer,2026-07-30,2026-01-06,Alexandre P.,150000
+1020,Marc,Blanc,marc.blanc@exemple.fr,0692113594,opportunity,2026-07-01,2026-04-05,Alexandre P.,80000
+1021,Louis,Masson,louis.masson@exemple.fr,0665034947,customer,2026-10-12,2026-05-12,Alexandre P.,80000
+1022,SOPHIE,Bonnet,sophie.bonnet@exemple.fr,06 87 96 65 73,customer,2026-08-25,2025-08-23,Nadia B.,150000
+1023,Emma,Mercier,emma.mercier@exemple.fr,06.85.67.98.92,opportunity,2026-08-23,2026-04-17,Alexandre P.,150000
+1024,claire,Simon,claire.simon@exemple.fr,,opportunity,2026-05-17,2025-07-14,Nadia B.,150000
+1025,Anne,Blanc,anne.blanc@exemple.fr,06.49.12.37.40,customer,2026-04-17,,Alexandre P.,320000
+1026,Antoine,Fournier,antoine.fournier@exemple.fr,06.50.37.30.55,customer,2026-04-01,2025-06-17,Nadia B.,150000
+1027, Inès,Garcia,,0613191016,customer,2026-06-27,2025-09-08,Alexandre P.,150000
+1028,Hugo,Lefèvre,hugo.lefèvre@exemple.fr,+33646747152,customer,2026-10-12,2026-05-29,Alexandre P.,600000
+1029,julie,Mercier,,06.91.60.94.23,lead,2026-10-22,2026-05-13,Nadia B.,320000
+1030,Victor,Bonnet, VICTOR.BONNET@EXEMPLE.FR ,0681117613,customer,2026-05-04,2025-09-27,Alexandre P.,0
+1031,Marc,Henry,marc.henry@exemple.fr,,opportunity,2026-10-23,2025-08-26,Nadia B.,320000
+1032,julie,BERNARD,julie.bernard@exemple.fr,06.94.85.71.91,customer,2026-03-01,2025-08-03,Alexandre P.,80000
+1033,Victor,Fournier,victor.fournier@exemple.fr,0650755230,customer,2026-06-06,2026-02-14,Nadia B.,25000
+1034,Thomas,Chevalier,thomas.chevalier@exemple.fr,06 76 79 77 36,opportunity,2026-03-27,2025-08-24,Alexandre P.,0
+1035,Nicolas,Girard, NICOLAS.GIRARD@EXEMPLE.FR ,0621434839,lead,2026-05-13,2026-09-08,Nadia B.,600000
+1036, Karim,Chevalier,karim.chevalier@exemple.fr,+33626422410,lead,2026-08-23,,Nadia B.,25000
+1037, Paul,Michel,paul.michel@exemple.fr,0631633199,opportunity,2026-10-08,2025-11-09,Nadia B.,600000
+1038, Nicolas,Moreau,nicolas.moreau@exemple.fr,0687209514,customer,2026-08-23,2026-08-28,Nadia B.,600000
+1039,Nicolas,Michel,nicolas.michel@exemple.fr,06 98 06 75 97,lead,2026-08-21,2026-07-28,Nadia B.,320000
+1040,claire,martin,claire.martin@exemple.fr,,opportunity,2026-06-22,2026-05-21,Alexandre P.,25000
+1041,claire,Dubois,claire.duboisexemple.fr,+33662197760,opportunity,2026-10-21,2026-08-31,Alexandre P.,0
+1042,Antoine,Michel,antoine.michelexemple.fr,+33670867914,customer,2026-03-08,2026-05-01,Alexandre P.,320000
+1043,Victor,Chevalier,victor.chevalier@exemple.fr,+33617202014,customer,2026-07-08,2026-09-01,Nadia B.,25000
+1044,julie,Moreau,julie.moreau@exemple.fr,+33657553107,customer,2026-05-13,,Nadia B.,150000
+1045,julie,laurent,julie.laurent@exemple.fr,06 58 09 18 66,customer,2026-04-28,2025-12-14,Alexandre P.,600000
+1046, Hugo,Garcia,hugo.garcia@exemple.fr,0614979774,opportunity,2026-07-19,2026-02-05,Nadia B.,600000
+1047, Léa,martin, LÉA.MARTIN@EXEMPLE.FR ,06 73 10 73 72,customer,2026-05-18,2026-08-23,Alexandre P.,25000
+1048, Antoine,BERNARD,antoine.bernard@exemple.fr,06.61.76.20.70,opportunity,2026-06-22,2025-08-20,Alexandre P.,80000
+1049, Louis,Chevalier,louis.chevalier@exemple.fr,06 14 30 77 86,customer,2026-05-22,,Alexandre P.,600000
+1050,Yanis,Michel,yanis.michel@exemple.fr,0630933860,customer,2026-06-03,2026-06-13,Alexandre P.,0
+1051, Chloé,martin,chloé.martin@exemple.fr,0640933491,customer,2026-04-27,2026-07-11,Nadia B.,80000
+1052,Antoine,Moreau,antoine.moreau@exemple.fr,+33672818996,opportunity,2026-08-02,2025-06-19,Alexandre P.,600000
+1053,Antoine,martin,antoine.martin@exemple.fr,0646334250,customer,2026-09-29,2025-10-30,Nadia B.,25000
+1054,Marc,Chevalier,marc.chevalier@exemple.fr,,customer,2026-09-12,2026-06-14,Nadia B.,0
+1055, Hugo,Bonnet,,0642677133,customer,2026-04-10,2026-09-19,Nadia B.,150000
+1056,claire,Girard,claire.girard@exemple.fr,+33615047197,opportunity,2026-04-07,2026-06-16,Alexandre P.,80000
+1057, Marc,Moreau, MARC.MOREAU@EXEMPLE.FR ,,lead,2026-07-13,2026-03-02,Nadia B.,150000
+1058,Inès,Bonnet,inès.bonnet@exemple.fr,+33680104099,lead,2026-05-26,2025-07-14,Alexandre P.,320000
+1059,Nicolas,Blanc,nicolas.blanc@exemple.fr,06 21 76 21 26,customer,2026-05-23,2026-01-12,Alexandre P.,150000
+1060, Camille,Faure,camille.faure@exemple.fr,,opportunity,2026-06-11,2025-10-20,Alexandre P.,0
+3046,HUGO,Garcia,,0614979774,opportunity,2025-09-28,2026-02-05,Nadia B.,600000
+3013,CHLOÉ,Bonnet,,06 51 03 02 36,customer,2025-09-28,2025-10-25,Nadia B.,80000
+3051,CHLOÉ,martin,,0640933491,customer,2025-09-28,2026-07-11,Nadia B.,80000
+3019,CAMILLE,Simon,,0627921675,customer,2025-09-28,2026-01-06,Alexandre P.,150000

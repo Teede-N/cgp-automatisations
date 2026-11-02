@@ -1,0 +1,28 @@
+flowchart LR
+  subgraph HS[HubSpot CRM]
+    C[(Contacts)]
+  end
+  subgraph N8N[n8n]
+    W1[01 Relance KYC<br/>chaque lundi]
+    W2[02 Sync<br/>toutes les heures]
+    W3[03 Compte-rendu RDV<br/>webhook]
+  end
+  subgraph PY[Scripts Python]
+    Q[Fiabilisation CRM]
+    R[Relances]
+    RP[Reporting hebdo]
+  end
+  APP[App interne<br/>Next.js + Supabase]
+  G[Gmail<br/>brouillons]
+  S[Slack]
+  CL[Claude API]
+  C --> W1 --> G
+  W1 --> S
+  C --> W2 --> APP
+  APP -- transcription --> W3 --> CL
+  W3 -- note --> C
+  W3 --> S
+  C -- export CSV --> Q --> R --> RP --> S
+  Q -- import_hubspot.csv --> C
+  H((Validation<br/>humaine)) -.-> G
+  H -.-> Q

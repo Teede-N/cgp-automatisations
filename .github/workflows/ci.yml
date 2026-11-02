@@ -1,0 +1,27 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  schedule:
+    - cron: "17 6 * * 1"   # chaque lundi : chaîne complète sur l'export d'exemple
+
+jobs:
+  automatisations:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - run: pip install pytest
+      - run: pytest -q
+      - name: Chaîne complète (qualité → relances → reporting)
+        run: |
+          PYTHONPATH=src python -m automatisations.reporting
+          cat sorties/rapport_qualite.md >> "$GITHUB_STEP_SUMMARY"
+      - uses: actions/upload-artifact@v4
+        with:
+          name: sorties
+          path: sorties/

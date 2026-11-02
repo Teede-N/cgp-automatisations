@@ -1,0 +1,149 @@
+{
+  "name": "Compte-rendu de RDV → note HubSpot + Slack",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "compte-rendu-rdv",
+        "responseMode": "onReceived"
+      },
+      "id": "740562d1-b8c0-5f13-8cd6-4610cdcac729",
+      "name": "Webhook – nouveau CR",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ model: 'claude-sonnet-4-5', max_tokens: 1200, temperature: 0, system: 'Résume ce RDV de gestion de patrimoine en JSON : objectifs, decisions, actions (avec échéance), points_vigilance. N\\'invente rien.', messages: [{ role: 'user', content: $json.body.transcription }] }) }}"
+      },
+      "id": "80639db9-c981-5afa-896f-200ae721623f",
+      "name": "Claude – structurer le CR",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "REMPLACER",
+          "name": "Anthropic API (x-api-key)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "engagement",
+        "operation": "create",
+        "type": "note",
+        "metadata": {
+          "body": "={{ $json.content[0].text }}"
+        },
+        "additionalFields": {
+          "associations": {
+            "contactIds": "={{ $('Webhook – nouveau CR').item.json.body.hubspot_contact_id }}"
+          }
+        }
+      },
+      "id": "b5e57c50-12df-5474-a0cd-86b7a85ffc05",
+      "name": "HubSpot – note sur le contact",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        440,
+        0
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "REMPLACER",
+          "name": "HubSpot (cabinet)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#comptes-rendus",
+          "mode": "name"
+        },
+        "text": "=Compte-rendu ajouté dans HubSpot pour le contact {{ $('Webhook – nouveau CR').item.json.body.hubspot_contact_id }} : à relire avant envoi au client.",
+        "otherOptions": {}
+      },
+      "id": "94e3e625-38d9-550e-bf11-15f7ed11a094",
+      "name": "Slack – prévenir le conseiller",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "REMPLACER",
+          "name": "Slack (cabinet)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Webhook – nouveau CR": {
+      "main": [
+        [
+          {
+            "node": "Claude – structurer le CR",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Claude – structurer le CR": {
+      "main": [
+        [
+          {
+            "node": "HubSpot – note sur le contact",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HubSpot – note sur le contact": {
+      "main": [
+        [
+          {
+            "node": "Slack – prévenir le conseiller",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

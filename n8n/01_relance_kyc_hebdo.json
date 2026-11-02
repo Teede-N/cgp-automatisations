@@ -1,0 +1,177 @@
+{
+  "name": "Relance KYC hebdomadaire (brouillons, jamais d'envoi automatique)",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "weeks",
+              "triggerAtDay": [
+                1
+              ],
+              "triggerAtHour": 8
+            }
+          ]
+        }
+      },
+      "id": "577fd0f2-1b03-51b2-a735-aa35149ab153",
+      "name": "Chaque lundi 8h",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "authentication": "appToken",
+        "resource": "contact",
+        "operation": "getAll",
+        "returnAll": true,
+        "additionalFields": {
+          "propertiesCollection": {
+            "propertiesValues": {
+              "properties": [
+                "firstname",
+                "email",
+                "date_kyc",
+                "conseiller",
+                "lifecyclestage"
+              ]
+            }
+          }
+        }
+      },
+      "id": "b79ef99f-3fe6-510c-8257-e619b6267ffd",
+      "name": "HubSpot – clients",
+      "type": "n8n-nodes-base.hubspot",
+      "typeVersion": 2.1,
+      "position": [
+        220,
+        0
+      ],
+      "credentials": {
+        "hubspotAppToken": {
+          "id": "REMPLACER",
+          "name": "HubSpot (cabinet)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "jsCode": "// KYC expiré ou expirant dans les 30 jours, clients uniquement (règle : docs/process/relance_kyc.md)\nconst limite = new Date(Date.now() + 30 * 864e5); limite.setFullYear(limite.getFullYear() - 1);\nreturn $input.all().filter(i => {\n  const p = i.json.properties ?? i.json;\n  return p.lifecyclestage === 'customer' && p.email && p.date_kyc && new Date(p.date_kyc) <= limite;\n});"
+      },
+      "id": "9e3ef1c0-3bbc-55d0-a0f1-9665625c1ce3",
+      "name": "Filtrer KYC à renouveler",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        440,
+        0
+      ]
+    },
+    {
+      "parameters": {
+        "resource": "draft",
+        "operation": "create",
+        "subject": "Mise à jour de votre dossier client",
+        "message": "=Bonjour {{ $json.properties.firstname }},\n\nVotre dossier client doit être mis à jour (dernière mise à jour : {{ $json.properties.date_kyc }}). Pourriez-vous me proposer un créneau de 20 minutes ?\n\nBien cordialement,\n{{ $json.properties.conseiller }}",
+        "options": {
+          "sendTo": "={{ $json.properties.email }}"
+        }
+      },
+      "id": "d7dc2646-6bd9-50d2-8afa-b638c8b59f38",
+      "name": "Brouillon Gmail",
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.1,
+      "position": [
+        660,
+        0
+      ],
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "REMPLACER",
+          "name": "Gmail (conseiller)"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "select": "channel",
+        "channelId": {
+          "__rl": true,
+          "value": "#conseillers",
+          "mode": "name"
+        },
+        "text": "={{ $input.all().length }} brouillons de relance KYC prêts à relire dans Gmail.",
+        "otherOptions": {}
+      },
+      "id": "5b3ef8c5-002c-5f0f-9d36-084904833c67",
+      "name": "Récap Slack",
+      "type": "n8n-nodes-base.slack",
+      "typeVersion": 2.3,
+      "position": [
+        880,
+        0
+      ],
+      "credentials": {
+        "slackApi": {
+          "id": "REMPLACER",
+          "name": "Slack (cabinet)"
+        }
+      }
+    }
+  ],
+  "connections": {
+    "Chaque lundi 8h": {
+      "main": [
+        [
+          {
+            "node": "HubSpot – clients",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "HubSpot – clients": {
+      "main": [
+        [
+          {
+            "node": "Filtrer KYC à renouveler",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Filtrer KYC à renouveler": {
+      "main": [
+        [
+          {
+            "node": "Brouillon Gmail",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Brouillon Gmail": {
+      "main": [
+        [
+          {
+            "node": "Récap Slack",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "active": false
+}

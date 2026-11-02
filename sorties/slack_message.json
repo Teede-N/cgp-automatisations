@@ -1,0 +1,41 @@
+{
+  "blocks": [
+    {
+      "type": "header",
+      "text": {
+        "type": "plain_text",
+        "text": "📊 Reporting hebdo du cabinet"
+      }
+    },
+    {
+      "type": "section",
+      "fields": [
+        {
+          "type": "mrkdwn",
+          "text": "*Clients*\n36"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Encours suivi*\n7 140 000 €"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Qualité CRM*\n30% de fiches conformes"
+        },
+        {
+          "type": "mrkdwn",
+          "text": "*Relances prêtes*\n20 brouillons à relire"
+        }
+      ]
+    },
+    {
+      "type": "context",
+      "elements": [
+        {
+          "type": "mrkdwn",
+          "text": "Généré automatiquement · détails dans le rapport qualité"
+        }
+      ]
+    }
+  ]
+}
